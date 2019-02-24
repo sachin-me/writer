@@ -4,10 +4,10 @@ import { updatePost, getSinglePost } from '../actions';
 
 class EditPost extends Component {
   state = {
-    title: '',
-    description: '',
-    bodyName: '',
-    tags: null
+    title: 'edit title',
+    description: 'edit description',
+    bodyName: 'edit body',
+    tags: 'edit tags'
   }
 
   handleTitle = (e) => {
