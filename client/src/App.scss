@@ -1,0 +1,228 @@
+// Root elements
+body {
+  margin: 0;
+}
+h1{
+  font-size: 20px;
+}
+
+// Home Page (Main Content)
+
+.mainContent-wrapper {
+  margin-top: 160px;
+  margin-left: 20px;
+  max-width: 600px;
+  width: 100%;
+  div {
+    padding: 10px;
+    background: #666;
+    border: 1px solid rgba(158, 156, 156, 0.719);
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 10px 0;
+    a {
+      color: aliceblue;
+      text-decoration: none;
+      letter-spacing: 1px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    button {
+      background: transparent;
+      border: 1px solid aliceblue;
+      color: aliceblue;
+      padding: 10px 20px; 
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      &:hover {
+        background: aliceblue;
+        color: #666;
+        border: 1px solid aliceblue;
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  }
+}
+
+// Header
+
+.header {
+  position: absolute;
+  background: #666;
+  color: aliceblue;
+  height: 100px;
+  top: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-content: center;
+  font-size: 25px;
+  box-shadow: 0 0 5px 7px rgba(0, 0, 0, 0.3);
+  a {
+    color: aliceblue;
+    text-decoration: none;
+  }
+  .header-logo {
+    display: inline-block;
+    p {
+      margin-left: 20px;
+    }
+  }
+  .signup-wrapper {
+    p {
+      float: right;
+      margin-right: 40px;
+    }
+  }
+  .hero {
+    display: grid;
+    place-content: end;
+    text-align: center;
+    grid-template-columns: repeat(2, 150px);
+    float: right;
+    .newPost-wrapper {
+      float: right;
+      border-radius: 50%;
+      border: 1px solid aliceblue;
+      height: 40px;
+      width: 40px;
+      margin-top: 20px;
+      position: relative;
+      p {
+        position: absolute;
+        top: -45%;
+        left: 34%;
+        right: 50%;
+      }
+    }
+  }
+}
+
+// Sign up form
+.form-wrapper {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 160px auto;
+  a {
+    color: #666;
+    font-size: 20px;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .form {
+    // margin-top: 200px;
+    display: grid;
+    grid-gap: 20px;
+    input {
+      height: 40px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .btn-wrapper {
+      margin-top: 10px;
+      button {
+        background: transparent;
+        border: 1px solid #666;
+        color: #666;
+        padding: 15px 25px; 
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        &:hover {
+          background: #666;
+          color: aliceblue;
+          border: 1px solid #666;
+          transition: all 0.5s ease-in-out;
+        }
+      }
+    }
+  }
+}
+
+// New Posts 
+
+.post-wrapper {
+  margin-top: 160px;
+  text-align: center;
+  p {
+    font-size: 30px;
+    color: #666;
+  }
+  .postForm-wrapper {
+    display: grid;
+    grid-gap: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    input {
+      height: 40px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    textarea {
+      height: 80px;
+      padding: 5px;
+    }
+    button {
+      background: transparent;
+      border: 1px solid #666;
+      color: #666;
+      padding: 12px 25px; 
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      &:hover {
+        background: #666;
+        color: aliceblue;
+        border: 1px solid #666;
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  }
+}
+
+// Single Post
+
+.singlePost-wrapper {
+  margin-top: 160px;
+  margin-left: 20px;
+  max-width: 600px;
+  width: 100%;
+  .singlePost {
+    padding: 10px;
+    background: #666;
+    border: 1px solid rgba(158, 156, 156, 0.719);
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 10px 0;
+    h3 {
+      color: aliceblue;
+      letter-spacing: 1px;
+    }
+    p {
+      color: #222;
+    }
+    .editPost-btn {
+      margin: 10px 0;
+    }
+    a {
+      background: transparent;
+      border: 1px solid aliceblue;
+      color: aliceblue;
+      padding: 10px 23px; 
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      &:hover {
+        background: aliceblue;
+        color: #666;
+        border: 1px solid aliceblue;
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  }
+}
