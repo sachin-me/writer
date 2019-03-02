@@ -1,6 +1,7 @@
 const initState = {
   posts: [],
-  singlePost: {}
+  singlePost: {},
+  user: {}
 }
 
 export default function Reducer(state = initState, action) {
@@ -8,7 +9,8 @@ export default function Reducer(state = initState, action) {
     case 'GET_POST': {
       return {
         ...state,
-        posts: action.data
+        posts: action.data.posts,
+        user: { id: action.data.userId, name: action.data.username }
       }
     }
 
@@ -16,6 +18,12 @@ export default function Reducer(state = initState, action) {
       return {
         ...state,
         singlePost: action.data
+      }
+    }
+
+    case 'LOGOUT_USER': {
+      return {
+        ...state
       }
     }
       

@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Post from './components/Post';
 import MainContent from './components/MainContent';
+import Profile from './components/Profile';
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path='/post/:id/edit' component={EditPost}></Route>
             <Route path='/signup' component={Signup}></Route>
             <Route path='/login' component={Login}></Route>
+            <Route path='/profile' component={Profile}></Route>
           </Switch>
         </div>
       </Router>

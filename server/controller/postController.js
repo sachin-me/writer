@@ -21,7 +21,9 @@ module.exports = {
   getPost: (req, res) => {
     Post.find({}, ((err, posts) => {
       if (err) throw err;
-      res.json(posts);
+      let userId = req.user ? req.user._id : null;
+      let username = req.user ? req.user.name : null;
+      res.json({ posts, userId: userId, username: username });
     }))
   },
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getPost, deletePost } from '../actions';
+import MiddleHoc from './MiddleHoc';
+
 
 class MainContent extends Component {
 

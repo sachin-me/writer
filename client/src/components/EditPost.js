@@ -27,7 +27,6 @@ class EditPost extends Component {
 
   componentDidMount = () => {
     const { match, singlePost } = this.props;
-    console.log(singlePost);
     this.props.dispatch(getSinglePost(match.params.id));
     this.setState({
       title: singlePost.title,

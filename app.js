@@ -43,6 +43,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./server/modules/passport')(passport);
 
 if (process.env.NODE_ENV === "development") {
  var webpack = require("webpack");

@@ -79,7 +79,7 @@ h1{
     display: grid;
     place-content: end;
     text-align: center;
-    grid-template-columns: repeat(2, 150px);
+    grid-template-columns: repeat(2, 100px);
     float: right;
     .newPost-wrapper {
       float: right;
@@ -223,6 +223,28 @@ h1{
         border: 1px solid aliceblue;
         transition: all 0.5s ease-in-out;
       }
+    }
+  }
+}
+
+// Profile
+
+.profile-wrapper {
+  margin-top: 160px;
+  text-align: center;
+  button {
+    background: transparent;
+    border: 1px solid #666;
+    color: #666;
+    padding: 12px 25px; 
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    &:hover {
+      background: #666;
+      color: aliceblue;
+      border: 1px solid #666;
+      transition: all 0.5s ease-in-out;
     }
   }
 }

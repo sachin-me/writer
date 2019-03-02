@@ -7,17 +7,21 @@ module.exports = {
   registerUser: (req, res) => {
     const registeredUser = new User(req.body);
     registeredUser.save((err, user) => {
-      console.log(err, user, 'inside register user');
       if (err) throw err;
       res.redirect('/');
     })
   },
 
-  // loginUser: () => {
-  //   passport.authenticate('local', { failureRedirect: '/login' }),
-  //   function(req, res) {
-  //     console.log(req.body, 'inside login user');
-  //     res.redirect('/');
-  //   }
-  // }
+  loginUser: () => {
+    passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.redirect('/');
+    }
+  },
+
+  logoutUser: (req, res) => {
+    req.session.destroy();
+    // req.logOut();
+    res.redirect('/');
+  }
 }

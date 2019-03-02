@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const userController = require('../controller/userController');
 
-router.get('/', (req, res)=>{
-  res.render('index');
+router.get('/', (req, res) => {
+  let userId = req.user ? req.user._id : null;
+  res.render('index', { user: req.user, id: userId });
 })
 
 // router.post('/post', (req, res) => {
@@ -39,7 +41,13 @@ router.post('/login',
   }
 )
 
+router.get('/logout', userController.logoutUser);
+
 router.get('/newPost', (req, res) => {
+  res.render('index');
+})
+
+router.get('/profile', (req, res) => {
   res.render('index');
 })
 
