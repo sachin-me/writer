@@ -5,7 +5,8 @@ let postSchema = mongoose.Schema({
   title: String,
   bodyName: String,
   description: String,
-  tags: [String]
+  tags: [String],
+  user: [{type: Schema.Types.ObjectId, ref: 'User'}]
 })
 
 const Post = mongoose.model('Post', postSchema);

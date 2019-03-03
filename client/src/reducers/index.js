@@ -17,7 +17,7 @@ export default function Reducer(state = initState, action) {
     case 'GET_SINGLE_POST': {
       return {
         ...state,
-        singlePost: action.data
+        singlePost: action.data.post
       }
     }
 

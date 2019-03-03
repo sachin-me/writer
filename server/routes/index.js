@@ -1,8 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const jsonwebtoken = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy;
 const userController = require('../controller/userController');
+
+// Local host address(URL)
+const url = 'http://localhost:8000/'
+
+// applying middleware for authorized user
+const isUser = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.locals.user = req.user;
+    return next();
+  }
+  res.status(403).redirect('/login');
+}
 
 router.get('/', (req, res) => {
   let userId = req.user ? req.user._id : null;
@@ -17,7 +30,7 @@ router.get('/post/:id', (req, res) => {
   res.render('index');
 })
 
-router.get('/post/:id/edit', (req, res) => {
+router.get('/post/:id/edit', isUser ,(req, res) => {
   res.render('index');
 })
 
@@ -32,7 +45,21 @@ router.get('/login', (req, res) => {
   res.render('index');
 })
 
-router.post('/login',
+// router.post('/login', 
+//   passport.authenticate('local', {
+//     session: false
+//   }),
+//   (req, res) => {
+//     const token = jsonwebtoken.sign({ user: req.user }, 'secret');
+//     // res.redirect(`${url}?t=${token}`)
+//     res.json({
+//       token: token,
+//       user: req.user
+//     })
+//   }
+// )
+
+router.post('/login', 
   passport.authenticate('local', {
     failureRedirect: '/login'
   }),
@@ -54,4 +81,7 @@ router.get('/profile', (req, res) => {
 router.post('/api/');
 
 
-module.exports = router;
+module.exports = {
+  router: router,
+  isLoggedIn: isUser
+};

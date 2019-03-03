@@ -12,13 +12,6 @@ module.exports = {
     })
   },
 
-  loginUser: () => {
-    passport.authenticate('local', { failureRedirect: '/login' }),
-    function(req, res) {
-      res.redirect('/');
-    }
-  },
-
   logoutUser: (req, res) => {
     req.session.destroy();
     // req.logOut();

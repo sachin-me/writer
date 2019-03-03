@@ -63,7 +63,9 @@ if (process.env.NODE_ENV === "development") {
 app.use(cors());
 
 app.use("/api", require("./server/routes/api"));
-app.use(require("./server/routes/index"));
+const iRouter = require('./server/routes/index');
+const indexRoute = iRouter.router
+app.use(indexRoute);
 
 app.listen(port, () => {
  console.log(`server is running on http://localhost:${port}`);

@@ -3,11 +3,13 @@ var Post = require('../models/Post')
 module.exports = {
 
   addPost: (req, res) => {
+    console.log(req.user, 'inside add post controller');
     var newPost = new Post({
       title: req.body.title,
       description: req.body.description,
       bodyName: req.body.bodyName,
-      tags: req.body.tags
+      tags: req.body.tags,
+      user: req.user
     })
     newPost.save((err, posts) => {
       if (err) throw Error('invalid post');
@@ -55,7 +57,10 @@ module.exports = {
     const id = req.params.id;
     Post.findById(id, (err, post) => {
       if (err) throw err;
-      res.json(post);
+      res.json({
+        post,
+        user: req.user
+      });
     })
   }
 }

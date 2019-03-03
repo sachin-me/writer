@@ -11,7 +11,7 @@ class SinglePost extends Component {
 
   render() {
     const { singlePost } = this.props;
-    return (
+    return (       
       <div className="singlePost-wrapper">
         <div className="singlePost">
           <div>

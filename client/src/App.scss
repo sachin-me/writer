@@ -79,7 +79,7 @@ h1{
     display: grid;
     place-content: end;
     text-align: center;
-    grid-template-columns: repeat(2, 100px);
+    grid-template-columns: repeat(2, 130px);
     float: right;
     .newPost-wrapper {
       float: right;
@@ -247,4 +247,12 @@ h1{
       transition: all 0.5s ease-in-out;
     }
   }
+}
+
+// Single Post 
+
+.loader {
+  margin-top: 200px;
+  text-align: center;
+  font-size: 30px;
 }
