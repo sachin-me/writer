@@ -1,16 +1,19 @@
-const express = require('express');
-const router = express.Router()
-const controller = require('../controller/postController')
-const userController = require('../controller/userController');
-const isLoggedIn = require('../routes/index');
-const isUser = isLoggedIn.isLoggedIn;
+const express = require("express");
+const router = express.Router();
+const postController = require("../controller/postController");
+const userController = require("../controller/userController");
 
-router.get('/', controller.getPost);
-router.post('/post', isUser ,controller.addPost);
-router.get('/post/:id', controller.getSinglePost);
-router.get('/post/:id/delete', isUser ,controller.deletePost);
-router.put('/post/:id/edit', isUser ,controller.updatePost);
-// router.get('/logout', userController.logoutUser);
+// Post APIs starts here
+router.get("/", postController.getPost);
+router.post("/post", postController.addPost);
+router.get("/post/:id", postController.getSinglePost);
+router.get("/post/:id/delete", postController.deletePost);
+router.put("/post/:id/edit", postController.updatePost);
+// Post APIs ends here
 
-
+// User APIs starts here
+router.post("/signup", userController.registerUser);
+router.post("/login", userController.loginUser);
+router.get("/logout", userController.logoutUser);
+// User APIs ends here
 module.exports = router;
