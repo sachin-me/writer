@@ -12,7 +12,7 @@ router.put("/post/:id/edit", postController.updatePost);
 // Post APIs ends here
 
 // User APIs starts here
-router.post("/signup", userController.registerUser);
+router.post("/signup", userController.create);
 router.post("/login", userController.loginUser);
 router.get("/logout", userController.logoutUser);
 // User APIs ends here
