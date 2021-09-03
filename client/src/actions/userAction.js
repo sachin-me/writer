@@ -13,13 +13,15 @@ const userAction = {
         if (user.message) {
           dispatch({
             type: "CREATE_USER_SUCCESS",
-            message: user.message
-          })
+            message: user.message,
+          });
+          cb(true);
         } else {
           dispatch({
             type: "CREATE_USER_FAIL",
-            error: user.error
-          })
+            error: user.error,
+          });
+          cb(false, user.error);
         }
       });
   },
