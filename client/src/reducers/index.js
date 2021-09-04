@@ -22,6 +22,20 @@ export default function Reducer(state = initState, action) {
       };
     }
 
+    case "LOGIN_SUCCESS": {
+      return {
+        ...state,
+        message: action.message,
+      };
+    }
+
+    case "LOGIN_FAIL": {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
+
     case "GET_POST": {
       return {
         ...state,
