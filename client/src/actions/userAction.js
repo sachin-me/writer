@@ -50,7 +50,7 @@ const userAction = {
         }
       });
   },
-  loggedInUser: (cb) => dispatch => {
+  loggedInUser: (cb) => (dispatch) => {
     fetch(`${uri}/profile`, {
       method: "GET",
       headers: {
@@ -66,11 +66,13 @@ const userAction = {
             message: user.message,
             user: user.user,
           });
+          cb(true);
         } else {
           dispatch({
             type: "LOGGED_IN_USER_FAIL",
             error: user.error,
           });
+          cb(false);
         }
       });
   },

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 import "./App.scss";
 import Header from "./components/Header.js";
@@ -14,10 +15,35 @@ import { connect } from "react-redux";
 import userAction from "./actions/userAction";
 
 class App extends Component {
-  componentDidMount = () => {
-    this.props.dispatch(userAction.loggedInUser());
+  state = {
+    loading: true,
   };
+
+  componentDidMount = () => {
+    this.props.dispatch(
+      userAction.loggedInUser((success) => {
+        if (success) {
+          this.setState({
+            loading: false,
+          });
+        } else {
+          this.setState({
+            loading: false,
+          });
+        }
+      })
+    );
+  };
+
   render() {
+    const { loading } = this.state;
+    if (loading) {
+      return (
+        <div className="loader">
+          <Loader type="Puff" color="#666" height={100} width={100} />
+        </div>
+      );
+    }
     return (
       <Router>
         <div className="App">
