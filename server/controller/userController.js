@@ -96,6 +96,28 @@ module.exports = {
     })(req, res, next);
   },
 
+  loggedInUser: async (req, res) => {
+    const { userId } = req.session;
+
+    if (userId) {
+      const user = await User.findOne({ _id: userId }).select("-password");
+      if (!user) {
+        return res.json({
+          error: "No matching user found, please create a user.",
+        });
+      } else {
+        return res.json({
+          message: "You're logged in, successfully.",
+          user,
+        });
+      }
+    } else {
+      return res.json({
+        error: "Please login to continue or create an account.",
+      });
+    }
+  },
+
   logoutUser: (req, res) => {
     req.session.destroy();
     // req.logOut();
