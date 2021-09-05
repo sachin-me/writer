@@ -14,6 +14,7 @@ router.put("/post/:id/edit", postController.updatePost);
 // User APIs starts here
 router.post("/signup", userController.create);
 router.post("/login", userController.loginUser);
+router.get("/profile", userController.loggedInUser);
 router.get("/logout", userController.logoutUser);
 // User APIs ends here
 module.exports = router;
