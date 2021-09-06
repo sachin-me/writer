@@ -25,7 +25,7 @@ module.exports = {
       } else {
         return res.json({
           message: "Post created successfully",
-          post
+          post,
         });
       }
     });
@@ -33,17 +33,23 @@ module.exports = {
 
   getPost: (req, res) => {
     Post.find({}, (err, posts) => {
-      if (err) throw err;
-      let userId = req.user ? req.user._id : null;
-      let username = req.user ? req.user.name : null;
-      res.json({ posts, userId: userId, username: username });
+      if (err) {
+        return res.json({
+          error: "Unable to fetch posts.",
+        });
+      }
+      res.json({ posts });
     });
   },
 
   deletePost: (req, res) => {
     const id = req.params.id;
     Post.findByIdAndDelete(id, (err, posts) => {
-      if (err) throw err;
+      if (err) {
+        return res.json({
+          error: "Unable to delete post.",
+        });
+      }
       Post.find({}, (err, posts) => {
         if (err) throw err;
         res.json(posts);
@@ -55,7 +61,9 @@ module.exports = {
     const id = req.params.id;
     Post.findByIdAndUpdate({ _id: id }, req.body, { new: true }, (err) => {
       if (err) {
-        throw err;
+        return res.json({
+          error: "Unable to update post.",
+        });
       } else {
         Post.find({}, (err, posts) => {
           if (err) throw err;
@@ -68,10 +76,13 @@ module.exports = {
   getSinglePost: (req, res) => {
     const id = req.params.id;
     Post.findById(id, (err, post) => {
-      if (err) throw err;
-      res.json({
+      if (err) {
+        return res.json({
+          error: "Unable to fetch post.",
+        });
+      }
+      return res.json({
         post,
-        user: req.user,
       });
     });
   },
