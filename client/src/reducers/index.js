@@ -55,7 +55,6 @@ export default function Reducer(state = initState, action) {
       return {
         ...state,
         posts: action.data.posts,
-        user: { id: action.data.userId, name: action.data.username },
       };
     }
 
