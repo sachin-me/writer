@@ -32,15 +32,25 @@ export function getPost(data) {
   };
 }
 
-export function getSinglePost(id) {
+export function getSinglePost(id, cb) {
   return (dispatch) => {
-    fetch(`${url}/post/${id}`)
+    fetch(`${url}/post/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        dispatch({
-          type: "GET_SINGLE_POST",
-          data,
-        });
+        if (data.message) {
+          dispatch({
+            type: "GET_SINGLE_POST",
+            data,
+          });
+          cb(true);
+        } else {
+          cb(false);
+        }
       });
   };
 }
@@ -69,11 +79,19 @@ export function updatePost(data, id, cb) {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch({
-          type: "GET_POST",
-          data,
-        });
-        cb(true);
+        if (data.message) {
+          dispatch({
+            type: "POST_UPDATE_SUCCESS",
+            message: data.message
+          });
+          cb(true);
+        } else {
+          dispatch({
+            type: "POST_UPDATE_FAIL",
+            error: data.error
+          });
+          cb(false);
+        }
       });
   };
 }

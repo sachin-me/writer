@@ -59,15 +59,20 @@ module.exports = {
 
   updatePost: (req, res) => {
     const id = req.params.id;
+    const { title, bodyName, description } = req.body;
+    if (!title || !bodyName || !description) {
+      return res.json({
+        error: "*Title, body, and description are required.",
+      });
+    }
     Post.findByIdAndUpdate({ _id: id }, req.body, { new: true }, (err) => {
       if (err) {
         return res.json({
           error: "Unable to update post.",
         });
       } else {
-        Post.find({}, (err, posts) => {
-          if (err) throw err;
-          res.json(posts);
+        return res.json({
+          message: "Post updated.",
         });
       }
     });
@@ -82,6 +87,7 @@ module.exports = {
         });
       }
       return res.json({
+        message: "Post found.",
         post,
       });
     });

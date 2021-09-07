@@ -1,17 +1,40 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { getSinglePost } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import { getSinglePost } from "../actions";
 
 class SinglePost extends Component {
-
+  state = {
+    loading: true,
+  };
   componentDidMount = () => {
-    this.props.dispatch(getSinglePost(this.props.match.params.id))
-  }
+    this.props.dispatch(
+      getSinglePost(this.props.match.params.id, (success) => {
+        if (success) {
+          this.setState({
+            loading: false,
+          });
+        } else {
+          this.setState({
+            loading: false,
+          });
+        }
+      })
+    );
+  };
 
   render() {
     const { singlePost } = this.props;
-    return (       
+    const { loading } = this.state;
+    if (loading) {
+      return (
+        <div className="loader">
+          <Loader type="Puff" color="#666" height={100} width={100} />
+        </div>
+      );
+    }
+    return (
       <div className="singlePost-wrapper">
         <div className="singlePost">
           <div>
@@ -24,15 +47,14 @@ class SinglePost extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
-    singlePost: state.singlePost || {}
-  }
-}
+    singlePost: state.singlePost || {},
+  };
+};
 
-export default connect(mapStateToProps)(SinglePost)
+export default connect(mapStateToProps)(SinglePost);

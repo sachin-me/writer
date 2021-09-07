@@ -63,7 +63,6 @@ const userAction = {
         if (user.message) {
           dispatch({
             type: "LOGGED_IN_USER_SUCCESS",
-            message: user.message,
             user: user.user,
           });
           cb(true);
