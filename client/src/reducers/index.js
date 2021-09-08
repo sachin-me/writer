@@ -55,7 +55,6 @@ export default function Reducer(state = initState, action) {
       return {
         ...state,
         posts: action.data.posts,
-        user: { id: action.data.userId, name: action.data.username },
       };
     }
 
@@ -64,6 +63,27 @@ export default function Reducer(state = initState, action) {
         ...state,
         singlePost: action.data.post,
       };
+    }
+
+    case "POST_DELETE_FAIL": {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
+
+    case "POST_UPDATE_FAIL": {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
+
+    case "POST_DELETE_SUCCESS": {
+      return {
+        ...state,
+
+      }
     }
 
     case "LOGOUT_USER": {

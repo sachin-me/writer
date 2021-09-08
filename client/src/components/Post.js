@@ -1,69 +1,98 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { addPost, getPost, deletePost } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addPost } from "../actions";
+import Message from "./Common/Message";
 
 class Post extends Component {
   state = {
-    title: '',
-    bodyName: '',
-    description: '',
-    tags: ''
-  }
+    title: "",
+    bodyName: "",
+    description: "",
+    tags: "",
+    message: null,
+    error: null,
+  };
 
-  handleTitle = (e) => {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   handlePost = () => {
-    for (let key in this.state) {
-      if (!(this.state[key])) return
+    const { title, bodyName, description, tags } = this.state;
+    if (!title || !bodyName || !description) {
+      return this.setState({
+        error: "*Title, body, and description are required.",
+      });
+    } else {
+      const payload = {
+        title,
+        bodyName,
+        description,
+        tags,
+      };
+      this.props.dispatch(
+        addPost(payload, (success) => {
+          if (success) {
+            this.props.history.push("/");
+          }
+        })
+      );
     }
-    this.props.dispatch(addPost(this.state, (succeed) => {
-      if (succeed) {
-        this.props.dispatch(getPost())
-      }
-    }))
-    this.setState({
-      title: '',
-      bodyName: '',
-      description: '',
-      tags: ''
-    })
-  }
-
-  componentDidMount = () => {
-    this.props.dispatch(getPost());
-  }
+  };
 
   render() {
-    const { title, description, bodyName, tags } = this.state;
+    const { title, description, bodyName, tags, message, error } = this.state;
     const { posts } = this.props;
     return (
       <div className="post-wrapper">
         <p>Create new Post</p>
         <div className="postForm-wrapper">
-          <input type="text" name="title" value={title} id="" placeholder="Add Title..." onChange={this.handleTitle} />
-          <input type="text" name="bodyName" value={bodyName} id="" placeholder="Add body..." onChange={this.handleTitle} />
-          <textarea name="description" id="" value={description} placeholder="Add description..." onChange={this.handleTitle}></textarea>
-          <input type="text" placeholder="Add Tags..." name="tags" value={tags} onChange={this.handleTitle} />
+          <input
+            type="text"
+            name="title"
+            value={title}
+            id=""
+            placeholder="Add Title..."
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="bodyName"
+            value={bodyName}
+            id=""
+            placeholder="Add body..."
+            onChange={this.handleChange}
+          />
+          <textarea
+            name="description"
+            id=""
+            value={description}
+            placeholder="Add description..."
+            onChange={this.handleChange}
+          ></textarea>
+          <input
+            type="text"
+            placeholder="Add Tags..."
+            name="tags"
+            value={tags}
+            onChange={this.handleChange}
+          />
+          <Message message={message} error={error} />
           <div>
-            <Link to="/">
-              <button onClick={this.handlePost}>Post</button>
-            </Link>
+            <button onClick={this.handlePost}>Post</button>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts
-  }
-}
+    posts: state.posts,
+  };
+};
 
 export default connect(mapStateToProps)(Post);

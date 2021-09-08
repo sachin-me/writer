@@ -14,12 +14,10 @@ class Header extends Component {
           {user._id ? (
             <Fragment>
               <div title="create new post" className="newPost-wrapper">
-                <Link to="/newPost">Create Post</Link>
+                <Link to="/create-post">Create Post</Link>
               </div>
               <div className="username">
-                <Link to="/profile">
-                  {`${user.name?.split(" ")?.[0]}`}
-                </Link>
+                <Link to="/profile">{`${user.name?.split(" ")?.[0]}`}</Link>
               </div>
             </Fragment>
           ) : (

@@ -50,7 +50,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={MainContent} />
-            <Route path="/newPost" component={Post}></Route>
+            <Route path="/create-post" component={Post}></Route>
             <Route path="/post/:id" exact component={SinglePost}></Route>
             <Route path="/post/:id/edit" component={EditPost}></Route>
             <Route path="/signup" component={Signup}></Route>

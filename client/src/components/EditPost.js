@@ -1,64 +1,105 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { updatePost, getSinglePost } from '../actions';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "react-loader-spinner";
+import { updatePost, getSinglePost } from "../actions";
+import Message from "./Common/Message";
 
-class EditPost extends Component {
-  state = {
-    title: 'edit title',
-    description: 'edit description',
-    bodyName: 'edit body',
-    tags: 'edit tags'
-  }
+function EditPost(props) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [bodyName, setBodyName] = useState("");
+  const [tags, setTags] = useState("");
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  handleTitle = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  const { singlePost, message, error } = useSelector((state) => {
+    return {
+      singlePost: state.singlePost || {},
+      message: state.message || "",
+      error: state.error || "",
+    };
+  });
 
-  handleUpdate = (id) => {
-    this.props.dispatch(updatePost(this.state, id, (succeed => {
-      if (succeed) {
-        this.props.history.push(`/post/${id}`)
-      }
-    })));
-    
-  }
+  const handleUpdate = (id) => {
+    const payload = {
+      title,
+      description,
+      bodyName,
+      tags,
+    };
+    dispatch(
+      updatePost(payload, id, (succeed) => {
+        if (succeed) {
+          setLoading(false);
+          props.history.push(`/post/${id}`);
+        } else {
+          setLoading(false);
+        }
+      })
+    );
+  };
 
-  componentDidMount = () => {
-    const { match, singlePost } = this.props;
-    this.props.dispatch(getSinglePost(match.params.id));
-    this.setState({
-      title: singlePost.title,
-      description: singlePost.description,
-      bodyName: singlePost.bodyName,
-      tags: singlePost.tags
-    })
-  }
+  useEffect(() => {
+    dispatch(
+      getSinglePost(props.match.params.id, (success) => {
+        if (success) {
+          setTitle(singlePost?.title);
+          setDescription(singlePost?.description);
+          setBodyName(singlePost?.bodyName);
+          setLoading(false);
+        }
+      })
+    );
+  }, []);
 
-  render() {
-    const {  title, description, bodyName, tags } = this.state;
-    const { singlePost } = this.props;
+  if (loading) {
     return (
-      <div className="post-wrapper">
-        <div className="postForm-wrapper">
-          <input type="text" name="title" value={title} id="" placeholder="Add Title..." onChange={this.handleTitle} />
-          <input type="text" name="bodyName" value={bodyName} id="" placeholder="Add body..." onChange={this.handleTitle} />
-          <textarea name="description" id="" value={description} placeholder="Add description..." onChange={this.handleTitle}></textarea>
-          <input type="text" placeholder="Add Tags..." name="tags" value={tags} onChange={this.handleTitle} />
-          <div>
-            <button onClick={(id) => this.handleUpdate(singlePost._id)}>Post</button>
-          </div>
+      <div className="loader">
+        <Loader type="Puff" color="#666" height={100} width={100} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="post-wrapper">
+      <div className="postForm-wrapper">
+        <input
+          type="text"
+          name="title"
+          value={title}
+          id=""
+          placeholder="Add Title..."
+          onChange={(event) => setTitle(event.target.value)}
+        />
+        <input
+          type="text"
+          name="bodyName"
+          value={bodyName}
+          id=""
+          placeholder="Add body..."
+          onChange={(event) => setBodyName(event.target.value)}
+        />
+        <textarea
+          name="description"
+          id=""
+          value={description}
+          placeholder="Add description..."
+          onChange={(event) => setDescription(event.target.value)}
+        ></textarea>
+        <input
+          type="text"
+          placeholder="Add Tags..."
+          name="tags"
+          value={tags}
+          onChange={(event) => setTags(event.target.value)}
+        />
+        <div>
+          <Message error={error} message={message} />
+          <button onClick={(id) => handleUpdate(singlePost._id)}>Post</button>
         </div>
       </div>
-    )
-  }
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    singlePost: state.singlePost || {}
-  }
-}
-
-export default connect(mapStateToProps)(EditPost);
+export default EditPost;

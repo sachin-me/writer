@@ -4,8 +4,8 @@ const postController = require("../controller/postController");
 const userController = require("../controller/userController");
 
 // Post APIs starts here
-router.get("/", postController.getPost);
-router.post("/post", postController.addPost);
+router.get("/posts", postController.getPost);
+router.post("/posts", postController.addPost);
 router.get("/post/:id", postController.getSinglePost);
 router.get("/post/:id/delete", postController.deletePost);
 router.put("/post/:id/edit", postController.updatePost);
