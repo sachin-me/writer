@@ -65,10 +65,10 @@ export default function Reducer(state = initState, action) {
       };
     }
 
-    case "POST_UPDATE_SUCCESS": {
+    case "POST_DELETE_FAIL": {
       return {
         ...state,
-        message: action.message,
+        error: action.error,
       };
     }
 
@@ -77,6 +77,13 @@ export default function Reducer(state = initState, action) {
         ...state,
         error: action.error,
       };
+    }
+
+    case "POST_DELETE_SUCCESS": {
+      return {
+        ...state,
+
+      }
     }
 
     case "LOGOUT_USER": {

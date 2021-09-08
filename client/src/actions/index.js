@@ -19,7 +19,7 @@ export function addPost(data, cb) {
   };
 }
 
-export function getPost(data) {
+export function getPost() {
   return (dispatch) => {
     fetch(`${url}/posts`)
       .then((res) => res.json())
@@ -55,15 +55,20 @@ export function getSinglePost(id, cb) {
   };
 }
 
-export function deletePost(id) {
+export function deletePost(id, cb) {
   return (dispatch) => {
     fetch(`${url}/post/${id}/delete`)
       .then((res) => res.json())
       .then((data) => {
-        dispatch({
-          type: "GET_POST",
-          data,
-        });
+        if (data.message) {
+          cb(true);
+        } else {
+          dispatch({
+            type: "POST_DELETE_FAIL",
+            error: data.error,
+          });
+          cb(false);
+        }
       });
   };
 }
@@ -82,13 +87,13 @@ export function updatePost(data, id, cb) {
         if (data.message) {
           dispatch({
             type: "POST_UPDATE_SUCCESS",
-            message: data.message
+            message: data.message,
           });
           cb(true);
         } else {
           dispatch({
             type: "POST_UPDATE_FAIL",
-            error: data.error
+            error: data.error,
           });
           cb(false);
         }

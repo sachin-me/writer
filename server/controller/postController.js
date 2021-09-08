@@ -44,16 +44,16 @@ module.exports = {
 
   deletePost: (req, res) => {
     const id = req.params.id;
-    Post.findByIdAndDelete(id, (err, posts) => {
+    Post.findByIdAndDelete(id, (err, post) => {
       if (err) {
         return res.json({
           error: "Unable to delete post.",
         });
+      } else {
+        return res.json({
+          message: "Post deleted."
+        })
       }
-      Post.find({}, (err, posts) => {
-        if (err) throw err;
-        res.json(posts);
-      });
     });
   },
 

@@ -1,46 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getPost, deletePost } from '../actions';
-import MiddleHoc from './MiddleHoc';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getPost, deletePost } from "../actions";
+import Message from "./Common/Message";
 
 class MainContent extends Component {
-
   handleDelete = (id) => {
-    this.props.dispatch(deletePost(id));
-  }
+    this.props.dispatch(
+      deletePost(id, (success) => {
+        if (success) {
+          this.props.dispatch(getPost());
+        }
+      })
+    );
+  };
 
   componentDidMount = () => {
     this.props.dispatch(getPost());
-  }
+  };
 
   render() {
-    const { posts } = this.props;
-   
+    const { posts, error } = this.props;
     return (
       <div className="mainContent-wrapper">
-        {
-          posts && posts.map((post) => {
+        {(posts.length !== 0 &&
+          posts.map((post) => {
             return (
-              <div key={post._id}>
+              <div key={post._id} className="post-card">
                 <Link to={`post/${post._id}`}>
                   <h1>{post.title}</h1>
                 </Link>
-                <button onClick={(id) => this.handleDelete(post._id)}>Delete</button>
+                {error && <Message error={error} message={""} />}
+                <button onClick={(id) => this.handleDelete(post._id)}>
+                  Delete
+                </button>
               </div>
-            )
-          })
-        }
+            );
+          })) || <div className="center">No post found 😥 </div>}
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts
-  }
-}
+    posts: state.posts,
+    error: state.error,
+  };
+};
 
 export default connect(mapStateToProps)(MainContent);
