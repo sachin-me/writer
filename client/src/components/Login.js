@@ -78,7 +78,7 @@ class Login extends Component {
 
   handleSubmitReturn = (success, error) => {
     if (success) {
-      this.props.history.push("/");
+      window.location.href = "/";
     } else {
       this.setState({
         error: error,

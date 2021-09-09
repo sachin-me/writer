@@ -75,6 +75,21 @@ const userAction = {
         }
       });
   },
+  logout: (cb) => {
+    return (dispatch) => {
+      fetch(`${uri}/logout`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message) {
+            dispatch({
+              type: "LOGOUT_USER_SUCCESS",
+              message: data.message,
+            });
+            cb(true);
+          }
+        });
+    };
+  },
 };
 
 export default userAction;

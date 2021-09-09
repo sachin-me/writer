@@ -82,13 +82,13 @@ export default function Reducer(state = initState, action) {
     case "POST_DELETE_SUCCESS": {
       return {
         ...state,
-
-      }
+      };
     }
 
-    case "LOGOUT_USER": {
+    case "LOGOUT_USER_SUCCESS": {
       return {
         ...state,
+        message: action.message,
       };
     }
 

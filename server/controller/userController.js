@@ -118,9 +118,11 @@ module.exports = {
     }
   },
 
-  logoutUser: (req, res) => {
+  logoutUser: async (req, res, next) => {
+    res.clearCookie("writer_session");
     req.session.destroy();
-    // req.logOut();
-    res.redirect("/");
+    return res.json({
+      message: "You're logged out. Please login to continue.",
+    });
   },
 };

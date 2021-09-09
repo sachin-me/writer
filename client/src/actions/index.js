@@ -100,14 +100,3 @@ export function updatePost(data, id, cb) {
       });
   };
 }
-
-export function logout(cb) {
-  return (dispatch) => {
-    fetch(`http://localhost:8000/logout`).then((data) => {
-      dispatch({
-        type: "LOGOUT_USER",
-      });
-      cb(true);
-    });
-  };
-}
