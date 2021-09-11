@@ -1,5 +1,6 @@
-writer
+Writer
 -------------------
+Please check out live app [here](https://writer-post0.herokuapp.com/) 👋.
 
 ## About Project
 
