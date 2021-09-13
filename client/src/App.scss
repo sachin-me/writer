@@ -18,9 +18,11 @@ h1{
   justify-content: center;
   .post-card {
     padding: 10px 1rem;
-    background: #666;
-    border: 1px solid rgba(158, 156, 156, 0.719);
-    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+    background: #e46a6aed;
+    border: 1px solid #e46a6aed;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 0.3rem;
     margin: 10px 0;
     max-width: 300px;
     width: 100%;
@@ -197,18 +199,23 @@ h1{
 
 .singlePost-wrapper {
   margin-top: 160px;
-  margin-left: 20px;
+  margin-left: 2rem;
   max-width: 600px;
   width: 100%;
   .singlePost {
     padding: 10px;
-    background: #666;
-    border: 1px solid rgba(158, 156, 156, 0.719);
-    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+    background: #e46a6aed;
+    border: 1px solid #e46a6aed;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 0.3rem;
     margin: 10px 0;
     h3 {
       color: aliceblue;
       letter-spacing: 1px;
+    }
+    p {
+      color: #444;
     }
     .heading {
       font-size: 1.3rem;
