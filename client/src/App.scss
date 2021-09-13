@@ -35,7 +35,7 @@ h1{
         text-decoration: underline;
       }
     }
-    button {
+    button, .edit-btn {
       background: transparent;
       border: 1px solid aliceblue;
       color: aliceblue;
@@ -50,6 +50,9 @@ h1{
         border: 1px solid aliceblue;
         transition: all 0.5s ease-in-out;
       }
+    }
+    .edit-btn {
+      margin-left: 1rem;
     }
   }
 }
@@ -207,8 +210,10 @@ h1{
       color: aliceblue;
       letter-spacing: 1px;
     }
-    p {
-      color: #222;
+    .heading {
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: 1px;
     }
     .editPost-btn {
       margin: 10px 0;

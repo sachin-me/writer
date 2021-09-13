@@ -38,12 +38,24 @@ class SinglePost extends Component {
       <div className="singlePost-wrapper">
         <div className="singlePost">
           <div>
-            <h3>{singlePost.title}</h3>
-            <p>{singlePost.bodyName}</p>
-            <p>{singlePost.description}</p>
-          </div>
-          <div className="editPost-btn">
-            <Link to={`/post/${singlePost._id}/edit`}>Edit</Link>
+            {singlePost?.title && (
+              <>
+                <p className="heading">Title:</p>
+                <p>{singlePost.title}</p>
+              </>
+            )}
+            {singlePost?.bodyName && (
+              <>
+                <p className="heading">Sub Text:</p>
+                <p>{singlePost.bodyName}</p>
+              </>
+            )}
+            {singlePost?.description && (
+              <>
+                <p className="heading">Description:</p>
+                <p>{singlePost.description}</p>
+              </>
+            )}
           </div>
         </div>
       </div>

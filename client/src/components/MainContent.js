@@ -15,6 +15,10 @@ class MainContent extends Component {
     );
   };
 
+  navigateEdit = (id) => {
+    this.props.history.push(`/post/${id}/edit`);
+  };
+
   componentDidMount = () => {
     this.props.dispatch(getPost());
   };
@@ -33,6 +37,10 @@ class MainContent extends Component {
                 {error && <Message error={error} message={""} />}
                 <button onClick={(id) => this.handleDelete(post._id)}>
                   Delete
+                </button>
+                {" "}
+                <button onClick={() => this.navigateEdit(post._id)} className="edit-btn">
+                  Edit
                 </button>
               </div>
             );
