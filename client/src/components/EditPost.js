@@ -5,13 +5,6 @@ import { updatePost, getSinglePost } from "../actions";
 import Message from "./Common/Message";
 
 function EditPost(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [bodyName, setBodyName] = useState("");
-  const [tags, setTags] = useState("");
-  const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
-
   const { singlePost, message, error } = useSelector((state) => {
     return {
       singlePost: state.singlePost || {},
@@ -20,13 +13,31 @@ function EditPost(props) {
     };
   });
 
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [bodyName, setBodyName] = useState("");
+  const [tags, setTags] = useState("");
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (Object.keys(singlePost).length !== 0) {
+      setTitle(singlePost.title);
+      setDescription(singlePost.description);
+      setBodyName(singlePost.bodyName);
+    }
+  }, [singlePost]);
+
   const handleUpdate = (id) => {
     const payload = {
       title,
       description,
       bodyName,
-      tags,
+      tags: !tags
+        ? singlePost.tags.filter((tag) => tag)
+        : [...singlePost.tags, tags],
     };
+
     dispatch(
       updatePost(payload, id, (succeed) => {
         if (succeed) {
@@ -43,9 +54,6 @@ function EditPost(props) {
     dispatch(
       getSinglePost(props.match.params.id, (success) => {
         if (success) {
-          setTitle(singlePost?.title);
-          setDescription(singlePost?.description);
-          setBodyName(singlePost?.bodyName);
           setLoading(false);
         }
       })
