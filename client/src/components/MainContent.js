@@ -5,7 +5,16 @@ import { getPost, deletePost } from "../actions";
 import Message from "./Common/Message";
 
 class MainContent extends Component {
+  state = {
+    showError: false,
+  };
   handleDelete = (id) => {
+    const { user } = this.props;
+    if (Object.keys(user).length === 0) {
+      this.setState({
+        showError: true,
+      });
+    }
     this.props.dispatch(
       deletePost(id, (success) => {
         if (success) {
@@ -16,7 +25,14 @@ class MainContent extends Component {
   };
 
   navigateEdit = (id) => {
-    this.props.history.push(`/post/${id}/edit`);
+    const { user } = this.props;
+    if (Object.keys(user).length === 0) {
+      this.setState({
+        showError: true,
+      });
+    } else {
+      this.props.history.push(`/post/${id}/edit`);
+    }
   };
 
   componentDidMount = () => {
@@ -25,6 +41,7 @@ class MainContent extends Component {
 
   render() {
     const { posts, error } = this.props;
+    const { showError } = this.state;
     return (
       <div className="mainContent-wrapper">
         {(posts.length !== 0 &&
@@ -34,12 +51,14 @@ class MainContent extends Component {
                 <Link to={`post/${post._id}`}>
                   <h1>{post.title}</h1>
                 </Link>
-                {error && <Message error={error} message={""} />}
+                {error && showError && <Message error={error} message={""} />}
                 <button onClick={(id) => this.handleDelete(post._id)}>
                   Delete
-                </button>
-                {" "}
-                <button onClick={() => this.navigateEdit(post._id)} className="edit-btn">
+                </button>{" "}
+                <button
+                  onClick={() => this.navigateEdit(post._id)}
+                  className="edit-btn"
+                >
                   Edit
                 </button>
               </div>
@@ -54,6 +73,7 @@ const mapStateToProps = (state) => {
   return {
     posts: state.posts,
     error: state.error,
+    user: state.user,
   };
 };
 
