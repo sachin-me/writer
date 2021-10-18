@@ -113,7 +113,7 @@ module.exports = {
       }
     } else {
       return res.json({
-        error: "Please login to continue or create an account.",
+        error: "Please login to continue.",
       });
     }
   },
