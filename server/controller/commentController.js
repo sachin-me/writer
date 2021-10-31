@@ -48,4 +48,49 @@ module.exports = {
       comments,
     });
   },
+  edit: async function (req, res) {
+    const { postId } = req.params;
+    const { text } = req.body;
+
+    if (!text) {
+      return res.json({
+        error: "*Textis required.",
+      });
+    }
+    await Comment.findOneAndUpdate(
+      { $and: [{ _id: id }, { post: postId }] },
+      { $set: { text: text } },
+      { new: true },
+      { upsert: true },
+      (err, data) => {
+        if (err) {
+          return res.json({
+            error: "Failed to update comment. Please try again.",
+          });
+        } else {
+          return res.json({
+            message: "Comment updated successfully",
+            data,
+          });
+        }
+      }
+    );
+  },
+  delete: async function (req, res) {
+    const { postId } = req.params;
+    await Comment.findOneAndDelete(
+      { $and: [{ _id: id }, { post: postId }] },
+      (err, data) => {
+        if (err) {
+          return res.json({
+            error: "Failed to delete comment. Please try again.",
+          });
+        } else {
+          return res.json({
+            message: "Comment deleted successfully.",
+          });
+        }
+      }
+    );
+  },
 };
