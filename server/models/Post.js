@@ -6,7 +6,8 @@ let postSchema = mongoose.Schema({
   bodyName: String,
   description: String,
   tags: [String],
-  user: [{type: Schema.Types.ObjectId, ref: 'User'}]
+  user: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
 })
 
 const Post = mongoose.model('Post', postSchema);
